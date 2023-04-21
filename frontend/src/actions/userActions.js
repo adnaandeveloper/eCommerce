@@ -2,6 +2,7 @@ import {
   USER_LOGION_FAIL,
   USER_LOGION_REQUEST,
   USER_LOGION_SUCCESS,
+  USER_LOGOUT,
 } from '../constants/userConstants';
 import axios from 'axios';
 
@@ -37,4 +38,11 @@ export const login = (email, password) => async (dispatch) => {
           : error.message,
     });
   }
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem('userInfo');
+  dispatch({
+    type: USER_LOGOUT,
+  });
 };
