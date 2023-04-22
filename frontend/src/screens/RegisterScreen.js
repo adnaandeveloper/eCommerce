@@ -26,6 +26,8 @@ const RegisterScreen = () => {
 
   useEffect(() => {
     if (userInfo) {
+      console.log('before', userInfo);
+
       navigate(redirect);
     }
   }, [navigate, userInfo, redirect]);
