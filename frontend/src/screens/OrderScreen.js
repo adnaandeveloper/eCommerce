@@ -33,8 +33,10 @@ const OrderScreen = () => {
     );
   }
   useEffect(() => {
-    dispatch(getOrderDetails(id));
-  }, [dispatch, id]);
+    if (!order || order._id !== id) {
+      dispatch(getOrderDetails(id));
+    }
+  }, [order, id, dispatch]);
 
   return loading ? (
     <Loader />
@@ -64,10 +66,7 @@ const OrderScreen = () => {
               </p>
 
               {order.isDelivered ? (
-                <Message variant="success">
-                  {' '}
-                  Paid on {order.deliveredAt}
-                </Message>
+                <Message variant="success">Paid on {order.deliveredAt}</Message>
               ) : (
                 <Message variant="danger">Not Delivered</Message>
               )}
