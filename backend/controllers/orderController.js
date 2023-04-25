@@ -8,33 +8,32 @@ import Order from '../models/orderModel.js';
 const addOrderItems = asyncHandler(async (req, res) => {
   const {
     orderItems,
-    shippingAdress,
+    shippingAddress,
     paymentMethod,
     itemsPrice,
     taxPrice,
+    shippingPrice,
     totalPrice,
   } = req.body;
 
-  if(orderItems && orderItems.length === 0) {
-    res.status(4000)
-    return 
-    throw new Error('no items ')
-    else{ 
-     const order = new Order( {
-        orderItems,
-        user: req.user_id,
-        shippingAdress,
-        paymentMethod,
-        itemsPrice,
-        taxPrice,
-        totalPrice,
-
-     })
-     const createdOrder = await order.save()
-     res.status(201).json(createdOrder)
-    }
+  if (orderItems && orderItems.length === 0) {
+    res.status(4000);
+    throw new Error('no items ');
+    return;
+  } else {
+    const order = new Order({
+      orderItems,
+      user: req.user._id,
+      shippingAddress,
+      paymentMethod,
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice,
+    });
+    const createdOrder = await order.save();
+    res.status(201).json(createdOrder);
   }
 });
 
-
-export { addOrderItems}
+export { addOrderItems };
